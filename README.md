@@ -24,14 +24,16 @@ The model is implemented with Keras 2.1.6 using Tensorflow backend
 
 Follow the instruction bellow:
 
+```
 cd path/to/G4detector/directory
 
-If you choose to do 10-fold cross validation such as the one that was done ion the original paper:
+#If you choose to do 10-fold cross validation such as the one that was done ion the original paper:
 python G4detector.py cross-val path-to-positive-set.csv path-to-negative-set.csv
 
-If you choose to train a model on the complete dataset:
+#If you choose to train a model on the complete dataset:
 python G4detector.py train path-to-positive-set.csv path-to-negative-set.csv
 
-If you choose to test an existing model:
+#If you choose to test an existing model:
 python G4detector.py test path-to-dataset.csv path-to-model.h5
+```
 
