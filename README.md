@@ -9,7 +9,7 @@ As part of this study we generated three novel datasets of high-throughput G4 me
               
               3. PQ: predicted G-quadruplexes in the human genome according to a regular expression: [G]^{3+}[ACGT]^{1-7}[G]^{3+}[ACGT]^{1-7}[G]^{3+}[ACGT]^{1-7}[G]^{3+}
 
-
+This resulted in the formation of nine different models, all of which can be found in the models folder.
 
 ## Getting Started
 
