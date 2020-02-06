@@ -19,20 +19,18 @@ stdAUC = []
 
 
 #perform cross validatio
-if sys.argv[0] == "cross-val":
+if sys.argv[1] == "cross-val":
 
     # prepare positive set
-    p = pd.read_csv(sys.argv[1], header=None)
-    p = p[0]
-    p = p[~p.str.contains("N")]
+    p = pd.read_csv(sys.argv[2], header=None)[0]
+    p = p[~p.str.contains("N") & ~p.str.contains(">")]
     p = p.str.upper()
     p.reset_index(drop=True, inplace=True)
     lp = np.ones(p.shape[0])
 
     # prepare nagative set
-    n = pd.read_csv(sys.argv[2], header=None)
-    n = n[0]
-    n = n[~n.str.contains("N")]
+    n = pd.read_csv(sys.argv[3], header=None)[0]
+    n = n[~n.str.contains("N") & ~n.str.contains(">")]
     n.reset_index(drop=True, inplace=True)
     ln = np.zeros(n.shape[0])
 
@@ -65,23 +63,22 @@ if sys.argv[0] == "cross-val":
 
         K.clear_session()
 
-    print(np.mean(AUC))
-    print(np.std(AUC))
+    print("mean AUS is: " + str(np.mean(AUC)))
+    print("std AUC is: " + str(np.std(AUC)))
 
-elif sys.argv[0] == 'train': #train on complete dataset
+elif sys.argv[1] == 'train': #train on complete dataset
 
     # prepare positive set
-    p = pd.read_csv(sys.argv[1], header=None)
-    p = p[0]
-    p = p[~p.str.contains("N")]
+    p = pd.read_csv(sys.argv[2], header=None)[0]
+    p = p[~p.str.contains("N") & ~p.str.contains(">")]
     p = p.str.upper()
     p.reset_index(drop=True, inplace=True)
     lp = np.ones(p.shape[0])
 
     # prepare nagative set
-    n = pd.read_csv(sys.argv[2], header=None)
+    n = pd.read_csv(sys.argv[3], header=None)[0]
     n = n[0]
-    n = n[~n.str.contains("N")]
+    n = n[~n.str.contains("N") & ~n.str.contains(">")]
     n.reset_index(drop=True, inplace=True)
     ln = np.zeros(n.shape[0])
 
@@ -109,14 +106,13 @@ elif sys.argv[0] == 'train': #train on complete dataset
 
 else: #test with existing model
 
-    x = pd.read_csv(sys.argv[1], header=None) #load sequences
-    x = x[0]
-    x = x[~x.str.contains("N")]
+    x = pd.read_csv(sys.argv[2], header=None)[0] #load sequences
+    x = x[~x.str.contains("N") & ~x.str.contains(">")]
     x = x.str.upper()
     x.reset_index(drop=True, inplace=True)
 
     l = x.apply(len)
-    model = load_model(sys.argv[2])
+    model = load_model(sys.argv[3])
     max_seq = int(model._feed_input_shapes[0][1]/4) #remove sequences that are longer the the max sequence the model was trained on
     x_Test = x[l <= max_seq]
     x_oh_test = [ug.oneHot(string, max_seq=max_seq) for string in x_Test]
