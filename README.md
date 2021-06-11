@@ -1,7 +1,7 @@
 # G4detector
 
-We present G4detector, a multi-kernel convolutional neural networks, aimed at claasifiyng DNA sequences for having the potential to form G-quadroplex (G4).
-As part of this study we generated three novel datasets of high-throughput G4 measurements for benchmarking different computational methods for the prediction task. We used genomic coordinates as retrievedin G4-seq experiment (GEO accession numbers GSE63874). The experiment included sequences identified as G4 using different stablizers (K, PDS and K+PDS). We turned each of the sets into a classification problemby augmenting it with a negative set. Since each negative set mayhave its drawbacks, we used three different kinds of negatives: 
+We present G4detector, a multi-kernel convolutional neural networks, aimed at classifiyng DNA sequences for having the potential to form G-quadroplex (G4).
+As part of this study we generated novel datasets of high-throughput G4 measurements for benchmarking different computational methods for the prediction task. We used genomic coordinates as retrieved in the G4-seq experiment (GEO accession numbers GSE110582). The experiment included sequences identified as G4 using different stablizers (K and K+PDS). We turned each of the sets into a classification problemby augmenting it with a negative set. Since each negative set may have its drawbacks, we used three different kinds of negatives: 
 
               1. random: random genomic sequences
               
@@ -25,15 +25,14 @@ The model is implemented with Keras 2.1.6 using Tensorflow backend
 Follow the instruction bellow:
 
 ```
-cd path/to/G4detector/directory
+cd path/to/G4detector/directory ; mkdir plots ; mkdir models ; mkdir predictions ; mkdir plots_arrays ; mkdir plots_arrays/roc ; mkdir plots_arrays/pr
 
-#If you choose to do 10-fold cross validation such as the one that was done ion the original paper:
-python G4detector.py cross-val path-to-positive-set.fa path-to-negative-set.fa
+#Training the model
+python g4.py -p path/to/positive/file.fa -n path/to/negative/file.fa 
 
-#If you choose to train a model on the complete dataset:
-python G4detector.py train path-to-positive-set.fa path-to-negative-set.fa
+python g4_fold.py -p path/to/positive/file.fa -fp path/to/positive/_lunp/files -n path/to/negative/file.fa -fn path/to/negative/_lunp/files
 
-#If you choose to test an existing model:
-python G4detector.py test path-to-dataset.fa path-to-model.h5
+#Predicting from an existing model
+python g4 -p path/to/positive/file.fa -fp path/to/positive/_lunp/files -n path/to/negative/file.fa -fn path/to/negative/_lunp/files -mdl path/to/model/directory -nt negative_type
 ```
 
