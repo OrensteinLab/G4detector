@@ -19,13 +19,23 @@ These instructions will get you a copy of the project up and running on your loc
 
 The model is implemented with Keras 2.1.6 using Tensorflow backend
 
+Running of ```g4_fold.py``` also requires the installation of the ViennaRNA package. See https://www.tbi.univie.ac.at/RNA/ for installation details. 
+
 
 ### How does it work
 
 Follow the instruction bellow:
 
 ```
-cd path/to/G4detector/directory ; mkdir plots ; mkdir models ; mkdir predictions ; mkdir plots_arrays ; mkdir plots_arrays/roc ; mkdir plots_arrays/pr
+cd path/to/G4detector/directory
+mkdir plots ; mkdir models ; mkdir predictions ; mkdir plots_arrays ; mkdir plots_arrays/roc ; mkdir plots_arrays/pr
+
+#Getting the necessary data for g4_fold.py
+mkdir path/to/positive/_lunp/files. ; cd path/to/positive/_lunp/files
+RNAplfold -u 1 < path/to/positive/file.fa
+
+cd .. ; mkdir path/to/negative/_lunp/files. ; cd path/to/negative/_lunp/files
+RNAplfold -u 1 < path/to/negative/file.fa
 
 #Training the model
 python g4.py -p path/to/positive/file.fa -n path/to/negative/file.fa 
