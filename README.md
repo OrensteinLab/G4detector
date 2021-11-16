@@ -38,8 +38,11 @@ cd .. ; mkdir path/to/negative/_lunp/files. ; cd path/to/negative/_lunp/files
 RNAplfold -u 1 < path/to/negative/file.fa
 
 #Training the model
+
+#sequence only
 python g4.py -p path/to/positive/file.fa -n path/to/negative/file.fa 
 
+#structure and sequence
 python g4_fold.py -p path/to/positive/file.fa -fp path/to/positive/_lunp/files -n path/to/negative/file.fa -fn path/to/negative/_lunp/files
 
 #Predicting from an existing model
