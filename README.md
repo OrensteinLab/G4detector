@@ -22,7 +22,9 @@ The model is implemented with Keras 2.1.6 using Tensorflow backend
 Running of ```g4_fold.py``` also requires the installation of the ViennaRNA package. See https://www.tbi.univie.ac.at/RNA/ for installation details. 
 
 
-### How does it work
+## How does it work
+
+### Sequence + RNA secondary Strucutre
 
 Follow the instruction bellow:
 
@@ -31,17 +33,13 @@ cd path/to/G4detector/directory
 mkdir plots ; mkdir models ; mkdir predictions ; mkdir plots_arrays ; mkdir plots_arrays/roc ; mkdir plots_arrays/pr
 
 #Getting the necessary data for g4_fold.py
-mkdir path/to/positive/_lunp/files. ; cd path/to/positive/_lunp/files
+mkdir path/to/positive/_lunp/files ; cd path/to/positive/_lunp/files
 RNAplfold -u 1 < path/to/positive/file.fa
 
-cd .. ; mkdir path/to/negative/_lunp/files. ; cd path/to/negative/_lunp/files
+cd .. ; mkdir path/to/negative/_lunp/files ; cd path/to/negative/_lunp/files
 RNAplfold -u 1 < path/to/negative/file.fa
 
-#Training the model
-
-#sequence only
-python g4.py -p path/to/positive/file.fa -n path/to/negative/file.fa 
-
+#Training the model 
 #structure and sequence
 python g4_fold.py -p path/to/positive/file.fa -fp path/to/positive/_lunp/files -n path/to/negative/file.fa -fn path/to/negative/_lunp/files
 
@@ -49,3 +47,14 @@ python g4_fold.py -p path/to/positive/file.fa -fp path/to/positive/_lunp/files -
 python g4 -p path/to/positive/file.fa -fp path/to/positive/_lunp/files -n path/to/negative/file.fa -fn path/to/negative/_lunp/files -mdl path/to/model/directory -nt negative_type
 ```
 
+### Sequence only
+Follow the instruction bellow:
+
+```
+cd path/to/G4detector/directory
+mkdir plots ; mkdir models ; mkdir predictions ; mkdir plots_arrays ; mkdir plots_arrays/roc ; mkdir plots_arrays/pr
+
+#Training the model
+#sequence only
+python g4.py -p path/to/positive/file.fa -n path/to/negative/file.fa 
+```
