@@ -24,6 +24,7 @@ from keras.layers.merge import concatenate
 from keras import optimizers
 from keras.regularizers import l2
 from sklearn.metrics import roc_curve, precision_recall_curve, auc, average_precision_score
+import os
 
 # Initalizing some parameters
 n_filters = 256
@@ -125,6 +126,15 @@ def read_files(pos_f, neg_f):
     test = test.sample(frac=1).reset_index(drop=True)
     
     return train, test
+	
+def check_dir():
+
+    dir_list = ['g4d_out' 'g4d_out/plots', 'g4d_out/models', 'g4d_out/predictions', 'g4d_out/plot_arrays', 'g4d_out/plot_arrays/roc', 'g4d_out/plot_arrays/pr']
+	for d in dir_list:
+	    if not os.path.exists(d):
+		    os.makedirs(d)
+			
+	return
 
 def model(shape, window, st, nt):
     # Creating Input Layer
@@ -251,6 +261,7 @@ def user_input():
 
 def main():
     args = user_input()
+	check_dir()
 
     if not args['positive']:
         print('use -p to provide a path to an input file for the positive examples')
