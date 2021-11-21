@@ -41,7 +41,6 @@ RNAplfold -u 1 < path/to/positive/file.fa
 cd .. ; mkdir path/to/negative/_lunp/files ; cd path/to/negative/_lunp/files
 RNAplfold -u 1 < path/to/negative/file.fa
 
-#Training the model 
 #structure and sequence
 python g4_fold.py -p path/to/positive/file.fa -fp path/to/positive/_lunp/files -n path/to/negative/file.fa -fn path/to/negative/_lunp/files
 
@@ -50,10 +49,6 @@ python g4_fold.py -p path/to/positive/file.fa -fp path/to/positive/_lunp/files -
 #### Sequence only
 
 ```
-cd path/to/G4detector/directory
-mkdir plots ; mkdir models ; mkdir predictions ; mkdir plots_arrays ; mkdir plots_arrays/roc ; mkdir plots_arrays/pr
-
-#Training the model
 #sequence only
 python g4.py -p path/to/positive/file.fa -n path/to/negative/file.fa 
 ```
@@ -62,7 +57,6 @@ python g4.py -p path/to/positive/file.fa -n path/to/negative/file.fa
 
 ```
 cd path/to/G4detector/directory
-
 
 python g4_inference.py -d path/to/data.fa -m path/to/pretrained/model 
 ```
