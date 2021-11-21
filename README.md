@@ -24,9 +24,11 @@ Running of ```g4_fold.py``` also requires the installation of the ViennaRNA pack
 
 ## How does it work
 
-### Sequence + RNA secondary Strucutre
+To run G4detector follow the instruction bellow:
 
-Follow the instruction bellow:
+### Model training
+
+#### Sequence + RNA secondary Strucutre
 
 ```
 cd path/to/G4detector/directory
@@ -43,12 +45,9 @@ RNAplfold -u 1 < path/to/negative/file.fa
 #structure and sequence
 python g4_fold.py -p path/to/positive/file.fa -fp path/to/positive/_lunp/files -n path/to/negative/file.fa -fn path/to/negative/_lunp/files
 
-#Predicting from an existing model
-python g4 -p path/to/positive/file.fa -fp path/to/positive/_lunp/files -n path/to/negative/file.fa -fn path/to/negative/_lunp/files -mdl path/to/model/directory -nt negative_type
 ```
 
-### Sequence only
-Follow the instruction bellow:
+#### Sequence only
 
 ```
 cd path/to/G4detector/directory
@@ -57,4 +56,13 @@ mkdir plots ; mkdir models ; mkdir predictions ; mkdir plots_arrays ; mkdir plot
 #Training the model
 #sequence only
 python g4.py -p path/to/positive/file.fa -n path/to/negative/file.fa 
+```
+
+### Inference
+
+```
+cd path/to/G4detector/directory
+
+
+python g4_inference.py -d path/to/data.fa -m path/to/pretrained/model 
 ```
