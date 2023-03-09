@@ -26,14 +26,14 @@ def oneHot(string, win=124):
 #     Output: mat - the encoded matrix
 # =============================================================================
     if len(string) > win:
-	     pwin = round(win/2)
-	     c = round(len(string)/2)
-		 string = string[c-pwin:c+pwin]
-	elif len(string) < win:
-	    z1 = round((win - len(string))/2)
-		z2 = win - z1
-		string = 'N'*z1 + string + 'N'*z2
-		
+        pwin = round(win/2)
+        c = round(len(string)/2)
+        string = string[c-pwin:c+pwin]
+    elif len(string) < win:
+        z1 = round((win - len(string))/2)
+        z2 = win - z1
+        string = 'N'*z1 + string + 'N'*z2
+
     trantab = str.maketrans('ACGTN', '01234')
     string = string + 'ACGTN'
     data = list(string.translate(trantab))
@@ -45,10 +45,8 @@ def oneHot(string, win=124):
 def read_files(path, window=125):
 
     f = pd.read_csv(path, header=None, names=['sequence'], index_col=False)
-	f[f['sequence'].str.contains('>')] = '>'
-	f = pd.DataFrame(''.join(f['sequence'].values).split('>')[1:].reset_index(drop=True)
-    	
-
+    f[f['sequence'].str.contains('>')] = '>'
+    f = pd.DataFrame(''.join(f['sequence'].values).split('>')[1:]).reset_index(drop=True)
     return f
 
 
@@ -69,13 +67,12 @@ def user_input():
 def main():
 
     args = user_input()
-	data = read_files(args['data'])
-	x = np.array(list(map(oneHot, train.seq)))
-	model = load_model(args['model'])
-	pred = model.predict(x)
-	data['predicted]'] = pred.squeeze()
-	
-	data.to_csv('G4detector_prediction.csv', index=False)
+    data = read_files(args['data'])
+    x = np.array(list(map(oneHot, list(data[0]))))
+    model = load_model(args['model'])
+    pred = model.predict(x)
+    data['predicted]'] = pred.squeeze()
+    data.to_csv('G4detector_prediction.csv', index=False)
 	
    
         
