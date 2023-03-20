@@ -36,7 +36,7 @@ def oneHot(string, win=124):
 
     trantab = str.maketrans('ACGTN', '01234')
     string = string + 'ACGTN'
-    data = list(string.translate(trantab))
+    data = list(string.upper().translate(trantab))
     mat = to_categorical(data)[0:-5]
     mat = np.delete(mat, -1, -1)
     mat = mat.astype(np.uint8)
